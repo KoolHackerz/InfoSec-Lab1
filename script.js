@@ -1,4 +1,4 @@
-// Глобальні змінні
+// Змінні стану
 let uploadedFile = null;
 let cardanoPattern = Array(16).fill(false); // Сітка 4x4
 let originalText = "";
