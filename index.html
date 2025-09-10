@@ -57,6 +57,7 @@
                   <div class="drop-icon">📁</div>
                   <p>Drag and drop a file here or click to select</p>
                   <p class="file-info">Supported formats: .txt</p>
+                  <p class="file-info">Maximum file size: 10 MB</p>
                   <input type="file" id="fileInput" accept=".txt" hidden />
                 </div>
 
@@ -159,8 +160,7 @@
                       conflict)
                     </p>
                   </div>
-                  <div class="cardano-grid" id="cardanoGrid">
-                  </div>
+                  <div class="cardano-grid" id="cardanoGrid"></div>
                   <div class="pattern-actions">
                     <button class="btn btn-secondary" id="randomizeBtn">
                       Clear Pattern
@@ -194,8 +194,7 @@
                       <p class="grid-description" id="gridDescription">
                         Letters arranged in 4x4 matrix
                       </p>
-                      <div class="result-grid" id="encryptedGrid">
-                      </div>
+                      <div class="result-grid" id="encryptedGrid"></div>
                     </div>
 
                     <div class="grid-container">
@@ -203,8 +202,10 @@
                       <p class="grid-description">
                         Square pattern showing extracted letters
                       </p>
-                      <div class="result-grid pattern-overlay" id="patternGrid">
-                      </div>
+                      <div
+                        class="result-grid pattern-overlay"
+                        id="patternGrid"
+                      ></div>
                       <div class="rotation-controls">
                         <button
                           class="btn btn-small rotation-btn"
@@ -234,8 +235,6 @@
           </div>
         </div>
       </main>
-
-      <footer></footer>
     </div>
 
     <script src="script.js"></script>

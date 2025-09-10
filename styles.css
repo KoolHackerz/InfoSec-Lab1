@@ -5,7 +5,7 @@
 }
 
 html {
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 :root {
@@ -104,7 +104,7 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
   min-height: 100vh;
-  overflow-x: auto;
+  overflow: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -1126,6 +1126,7 @@ main {
   background: rgba(255, 255, 255, 0.05);
   color: var(--text-primary);
   border: 1px solid var(--glass-border);
+  font-family: "Montserrat";
 }
 
 .btn-secondary:hover:not(:disabled) {
@@ -1539,25 +1540,6 @@ footer {
   .result-visualization h3 {
     font-size: 1.2rem;
   }
-}
-
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.02);
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(88, 166, 255, 0.3);
-  border-radius: 4px;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(88, 166, 255, 0.5);
 }
 
 .card:nth-child(even) {
