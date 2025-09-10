@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cardano Square 4x4 - Encryption/Decryption</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/png" href="icon.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Cardano Square 4x4</h1>
+      </header>
+
+      <main>
+        <div class="stage-navigation">
+          <button
+            class="nav-arrow nav-arrow-left"
+            id="prevStageBtn"
+            style="display: none"
+          >
+            <span class="arrow-icon">←</span>
+          </button>
+
+          <div class="stage-indicator">
+            <div class="stage-dots">
+              <div class="stage-dot active" data-stage="0"></div>
+              <div class="stage-dot" data-stage="1"></div>
+              <div class="stage-dot" data-stage="2"></div>
+              <div class="stage-dot" data-stage="3"></div>
+            </div>
+            <div class="stage-title" id="stageTitle">File Upload</div>
+          </div>
+
+          <button
+            class="nav-arrow nav-arrow-right"
+            id="nextStageBtn"
+            style="display: none"
+          >
+            <span class="arrow-icon">→</span>
+          </button>
+        </div>
+
+        <div class="stages-container" id="stagesContainer">
+          <div class="stage active" id="stage-0" data-stage="0">
+            <div class="stage-card">
+              <h2>File Upload</h2>
+              <div class="file-upload-section">
+                <div class="file-drop-zone" id="fileDropZone">
+                  <div class="drop-icon">📁</div>
+                  <p>Drag and drop a file here or click to select</p>
+                  <p class="file-info">Supported formats: .txt</p>
+                  <input type="file" id="fileInput" accept=".txt" hidden />
+                </div>
+
+                <div
+                  class="file-details"
+                  id="fileDetails"
+                  style="display: none"
+                >
+                  <div class="file-info-card">
+                    <div class="file-icon">📄</div>
+                    <div class="file-data">
+                      <div class="file-name" id="fileName"></div>
+                      <div class="file-size" id="fileSize"></div>
+                      <div class="file-type" id="fileType"></div>
+                    </div>
+                    <button class="remove-file-btn" id="removeFileBtn">
+                      ✕
+                    </button>
+                  </div>
+
+                  <div class="text-preview" id="textPreview">
+                    <h3>Text content:</h3>
+                    <div class="preview-text" id="previewText"></div>
+                    <div class="character-count" id="characterCount"></div>
+                  </div>
+
+                  <div
+                    class="text-warning"
+                    id="textWarning"
+                    style="display: none"
+                  >
+                    <div class="warning-content">
+                      <div class="warning-icon">⚠</div>
+                      <div class="warning-message">
+                        <p><strong>Text too long!</strong></p>
+                        <p>
+                          The text contains more than 16 characters. For 4x4
+                          matrix encryption, only the first 16 characters will
+                          be used.
+                        </p>
+                        <p>Do you want to continue with the truncated text?</p>
+                      </div>
+                    </div>
+                    <div class="warning-actions">
+                      <button class="btn btn-warning" id="confirmTruncateBtn">
+                        Continue with 16 characters
+                      </button>
+                      <button class="btn btn-secondary" id="cancelTruncateBtn">
+                        Choose another file
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stage" id="stage-1" data-stage="1">
+            <div class="stage-card">
+              <h2>Operation Mode</h2>
+              <div class="mode-selection">
+                <label class="radio-card">
+                  <input type="radio" name="mode" value="encrypt" checked />
+                  <div class="radio-content">
+                    <div class="mode-icon">🔒</div>
+                    <div class="mode-title">Encryption</div>
+                    <div class="mode-description">
+                      Encrypt text using Cardano square
+                    </div>
+                  </div>
+                </label>
+
+                <label class="radio-card">
+                  <input type="radio" name="mode" value="decrypt" />
+                  <div class="radio-content">
+                    <div class="mode-icon">🔓</div>
+                    <div class="mode-title">Decryption</div>
+                    <div class="mode-description">
+                      Decrypt text using Cardano square
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="stage" id="stage-2" data-stage="2">
+            <div class="stage-card">
+              <h2>Cardano Square Settings</h2>
+              <div class="cardano-settings">
+                <div class="setting-group">
+                  <label for="cardanoPattern">Square pattern (4x4):</label>
+                  <div class="pattern-info">
+                    <p><span class="legend-active">■</span> Active cell</p>
+                    <p>
+                      <span class="legend-available">◯</span> Available to place
+                    </p>
+                    <p>
+                      <span class="legend-blocked">✕</span> Blocked (would
+                      conflict)
+                    </p>
+                  </div>
+                  <div class="cardano-grid" id="cardanoGrid">
+                  </div>
+                  <div class="pattern-actions">
+                    <button class="btn btn-secondary" id="randomizeBtn">
+                      Clear Pattern
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stage" id="stage-3" data-stage="3">
+            <div class="stage-card">
+              <h2>Result</h2>
+              <div class="result-content">
+                <div class="result-header">
+                  <span class="result-label" id="resultLabel"
+                    >Encrypted text:</span
+                  >
+                  <button class="btn btn-small" id="downloadBtn">
+                    Download
+                  </button>
+                </div>
+                <div class="result-text" id="resultText"></div>
+
+                <div class="result-visualization" id="resultVisualization">
+                  <h3 id="visualizationTitle">Process Visualization</h3>
+
+                  <div class="visualization-container">
+                    <div class="grid-container">
+                      <h4 id="gridTitle">Text Grid</h4>
+                      <p class="grid-description" id="gridDescription">
+                        Letters arranged in 4x4 matrix
+                      </p>
+                      <div class="result-grid" id="encryptedGrid">
+                      </div>
+                    </div>
+
+                    <div class="grid-container">
+                      <h4>Pattern Overlay</h4>
+                      <p class="grid-description">
+                        Square pattern showing extracted letters
+                      </p>
+                      <div class="result-grid pattern-overlay" id="patternGrid">
+                      </div>
+                      <div class="rotation-controls">
+                        <button
+                          class="btn btn-small rotation-btn"
+                          id="rotateBtn"
+                        >
+                          <span class="rotation-icon">↻</span>
+                          <span class="rotation-text">Rotate 90°</span>
+                        </button>
+                        <div class="rotation-info">
+                          <span>Rotation: </span>
+                          <span id="rotationDegree">0°</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="extracted-letters" id="extractedLetters">
+                    <h4>Extracted Letters</h4>
+                    <p class="extraction-description">
+                      Letters extracted at current rotation
+                    </p>
+                    <div class="letters-display" id="lettersDisplay"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer></footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
